@@ -12,7 +12,7 @@ export const AgregarPersonaje = async (personaje) =>
    .input("pHistoria", sql.VarChar, personaje.historia)
    .input("pPeso", sql.Float, personaje.peso)
    .input("pEdad", sql.Int, personaje.edad)
-   .input("pImagen", sql.VarChar, personaje.Imagen)
+   .input("pImagen", sql.VarChar, personaje.imagen)
    
    .query('INSERT INTO Personaje (Nombre, Historia, Peso, Edad, Imagen) VALUES (@pNombre, @pHistoria, @pPeso, @pEdad, @pImagen)');
 
@@ -21,7 +21,7 @@ export const AgregarPersonaje = async (personaje) =>
 
 export const ObtenerPersonajes = async () => {
     const conn = await sql.connect(configDB);
-    const results = await conn.request().query('SELECT Nombre, Imagen, Id FROM Personajes');
+    const results = await conn.request().query('SELECT Nombre, Imagen, Id FROM Personaje');
 
     return results.recordset;
 }
@@ -29,14 +29,14 @@ export const ObtenerPersonajesById = async (Id) => {
     const conn = await sql.connect(configDB);
     console.log(Id)
     const results = await conn.request().input("pId", sql.Int, Number(Id))
-    .query('SELECT * FROM Personajes WHERE Id = @pId');
+    .query('SELECT * FROM Personaje WHERE Id = @pId');
 
     return results.recordset;
 }
 export const EliminarPersonaje = async (Id) => {
     const conn = await sql.connect(configDB);
     const results = await conn.request().input("pId", sql.Int, Number(Id))
-    .query('DELETE FROM Personajes WHERE Id = @pId');
+    .query('DELETE FROM Personaje WHERE Id = @pId');
 
     console.log(results);
 }
@@ -48,7 +48,7 @@ export const UpdatePersonaje = async (personaje, id) => {
     .input('pPeso', sql.Float, personaje.peso)
     .input('pEdad', sql.Int, personaje.edad)
     .input('pHistoria', sql.VarChar, personaje.historia)
-    .input("pImagen", sql.VarChar, personaje.Imagen)
-    .query('UPDATE Personajes SET Nombre = @pNombre, Historia = @pHistoria, Peso =  @pPeso, Edad = @pEdad, Imagen = @pImagen WHERE Id = @pId')
+    .input("pImagen", sql.VarChar, personaje.imagen)
+    .query('UPDATE Personaje SET Nombre = @pNombre, Historia = @pHistoria, Peso =  @pPeso, Edad = @pEdad, Imagen = @pImagen WHERE Id = @pId')
     console.log(result);
 }
