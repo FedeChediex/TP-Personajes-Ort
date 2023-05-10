@@ -1,4 +1,4 @@
-class Pelicula {
+export class Pelicula {
     id;
     titulo;
     fecha;
@@ -6,4 +6,3 @@ class Pelicula {
     imagen;
 }
 
-export default Pelicula;

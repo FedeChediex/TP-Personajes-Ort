@@ -4,7 +4,7 @@ import configDB from '../models/DB.js'
 
 export class PeliculaService {
     
-    agregarPelicula = async (pelicula) => {
+    AgregarPelicula = async (pelicula) => {
         const connection = await sql.connect(configDB)
 
 
@@ -19,7 +19,7 @@ export class PeliculaService {
         console.log(results);
     }
 
-    eliminarPelicula = async (Id) => {
+    EliminarPelicula = async (Id) => {
         const conn = await sql.connect(configDB);
         const results = await conn.request().input("pId", sql.Int, Number(Id))
             .query('DELETE FROM Pelicula WHERE Id = @pId');
@@ -27,7 +27,7 @@ export class PeliculaService {
         console.log(results);
     }
 
-    udatePelicula = async (pelicula, id) => {
+    UpdatePelicula = async (pelicula, id) => {
         const conn = await sql.connect(configDB);
         const result = await conn.request()
             .input('pId', sql.Int, id)

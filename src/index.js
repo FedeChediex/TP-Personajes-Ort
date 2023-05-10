@@ -1,15 +1,19 @@
-import jwt from "jsunwebtoken"
 import "dotenv/config"
-import  {Router} from "express"
-import Personaje from "./models/Personaje"
-import { ObtenerPersonajes } from "./services/PersonajeService"
+import express from "express";
 
-const router = Router()
-const peliculaService = new PeliculaService();
+import PersonajeRouter from "./controllers/PersonajeController.js"
+
+const app = express();
 const port = 3000
 
+app.use(express.json());
+
+app.use("/personaje", PersonajeRouter);
 
 
+app.listen(port, () => {
+  console.log(`Listening on port ${port}`);
+});
 
 
 

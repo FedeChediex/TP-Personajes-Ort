@@ -1,4 +1,4 @@
-class Personaje {
+export class Personaje {
     id;
     nombre;
     peso;
@@ -7,4 +7,3 @@ class Personaje {
     imagen;
 }
 
-export default Personaje;
