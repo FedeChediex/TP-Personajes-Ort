@@ -1,4 +1,4 @@
-import sql from 'mssql';
+import sql from 'mssql'
 import configDB from '../models/DB.js'
 import 'dotenv/config'
 
@@ -25,19 +25,18 @@ export class PersonajeService {
 
         return results.recordset;
     }
-    ObtenerPersonajesById = async (Id) => {
+    ObtenerPersonajeById = async (Id) => {
         const conn = await sql.connect(configDB);
         console.log(Id)
         const results = await conn.request().input("pId", sql.Int, Number(Id))
-            .query('SELECT * FROM Personaje WHERE Id = @pId');
-
+            .query('SELECT * FROM Personaje WHERE Id = @pId' )
+            .query('INNER JOIN Personaje ON PeliculaPersonaje.Id_personaje = Personaje.Id_Personaje')
         return results.recordset;
     }
     EliminarPersonaje = async (Id) => {
         const conn = await sql.connect(configDB);
         const results = await conn.request().input("pId", sql.Int, Number(Id))
-            .query('DELETE FROM Personaje WHERE Id = @pId');
-
+            .query('DELETE FROM Personaje WHERE Id = @pId')
         console.log(results);
     }
     UpdatePersonaje = async (personaje, id) => {

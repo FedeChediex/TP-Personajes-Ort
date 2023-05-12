@@ -1,0 +1,13 @@
+USE [master]
+GO
+CREATE LOGIN [FedeMauri] WITH PASSWORD=N'jajaja', DEFAULT_DATABASE=[TP-Personajes], CHECK_EXPIRATION=OFF, CHECK_POLICY=OFF
+GO
+
+USE [TP-Personajes]
+GO
+CREATE USER [FedeMauri] FOR LOGIN [FedeMauri]
+GO
+USE [TP-Personajes]
+GO
+ALTER ROLE [db_owner] ADD MEMBER [FedeMauri]
+GO
