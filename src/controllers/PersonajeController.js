@@ -6,8 +6,10 @@ const personajeService = new PersonajeService();
 
 router.get('', async(req,res)=>
 {
+    
+    
     console.log('Get all')
-    const personaje = await personajeService.ObtenerPersonajes()
+    const personaje = await personajeService.ObtenerPersonajes(req.query)
     return res.status(200).json(personaje)
 })
 

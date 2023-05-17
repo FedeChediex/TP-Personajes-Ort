@@ -19,9 +19,29 @@ export class PersonajeService {
         console.log(results);
     }
 
-    ObtenerPersonajes = async () => {
+    ObtenerPersonajes = async (req) => {
+        console.log(req.name)
+        console.log(req.age)
+        console.log(req.age)
+        var where = "Where "
+        if (req.name) {
+            where =+ 'Nombre = @pNombre'
+            
+        }
+        if (req.age) {
+            
+        }
+        if (req.movie) {
+            
+        }
         const conn = await sql.connect(configDB);
-        const results = await conn.request().query('SELECT Nombre, Imagen, Id FROM Personaje');
+        const results = await conn.request()
+        .input("pNombre", sql.VarChar, req.name)
+        .input("pEdad", sql.VarChar, req.age)
+        .input("pNombre", sql.VarChar, req.name)
+        .query('SELECT Nombre, Imagen, Id FROM Personaje ' + where);
+        
+        
 
         return results.recordset;
     }
@@ -29,8 +49,8 @@ export class PersonajeService {
         const conn = await sql.connect(configDB);
         console.log(Id)
         const results = await conn.request().input("pId", sql.Int, Number(Id))
-            .query('SELECT * FROM Personaje WHERE Id = @pId' )
-            .query('INNER JOIN Personaje ON PeliculaPersonaje.Id_personaje = Personaje.Id_Personaje')
+            .query('SELECT * FROM Personaje Left JOIN PeliculaPersonaje ON PeliculaPersonaje.Id_personaje = Personaje.Id Left JOIN Pelicula ON PeliculaPersonaje.Id_pelicula = Pelicula.Id WHERE Personaje.Id = @pId' )
+            
         return results.recordset;
     }
     EliminarPersonaje = async (Id) => {
