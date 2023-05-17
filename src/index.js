@@ -2,6 +2,7 @@ import "dotenv/config"
 import express from "express";
 
 import PersonajeRouter from "./controllers/PersonajeController.js"
+import PeliculaRouter  from "./controllers/PeliculaController.js";
 
 const app = express();
 const port = 3000
@@ -10,6 +11,7 @@ app.use(express.json());
 
 app.use("/characters", PersonajeRouter);
 
+app.use("/movies", PeliculaRouter);
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);

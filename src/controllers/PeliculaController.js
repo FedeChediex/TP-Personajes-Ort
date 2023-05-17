@@ -8,7 +8,7 @@ router.get('', async(req,res)=>
 {
     console.log('Get all')
     const pelicula = await peliculaService.ObtenerPeliculas()
-    return res.status(200).json(peliculas)
+    return res.status(200).json(pelicula)
 })
 
 

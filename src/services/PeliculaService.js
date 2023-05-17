@@ -1,6 +1,6 @@
-import Pelicula from '../models/Pelicula'
 import sql from 'mssql';
 import configDB from '../models/DB.js'
+import 'dotenv/config'
 
 export class PeliculaService {
     
@@ -37,5 +37,11 @@ export class PeliculaService {
             .input("pImagen", sql.VarChar, pelicula.imagen)
             .query('UPDATE Pelicula SET Titulo = @pTitulo,Fecha =  @pFecha, Calificacion = @pCalificacion, Imagen = @pImagen WHERE Id = @pId')
         console.log(result);
+    }
+    ObtenerPeliculas = async () => {
+        const conn = await sql.connect(configDB);
+        const results = await conn.request().query('SELECT Titulo, Fecha, Imagen, Id FROM Pelicula');
+
+        return results.recordset;
     }
 }
