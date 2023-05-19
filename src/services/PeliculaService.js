@@ -38,9 +38,20 @@ export class PeliculaService {
             .query('UPDATE Pelicula SET Titulo = @pTitulo,Fecha =  @pFecha, Calificacion = @pCalificacion, Imagen = @pImagen WHERE Id = @pId')
         console.log(result);
     }
-    ObtenerPeliculas = async () => {
+    ObtenerPeliculas = async (req) => {
+        console.log(req.name)
+        var where = " "
+        
+        if (req.name != null) {
+            where = 'WHERE Titulo = @pTitulo'
+        }
+        var procedure = 'SELECT Titulo, Fecha, Imagen, Id FROM Pelicula ' + where
+        console.log(procedure)
         const conn = await sql.connect(configDB);
-        const results = await conn.request().query('SELECT Titulo, Fecha, Imagen, Id FROM Pelicula');
+        const results = await conn.request()
+        
+        .input('pTitulo', sql.VarChar, req.name)
+        .query(procedure);
 
         return results.recordset;
     }
