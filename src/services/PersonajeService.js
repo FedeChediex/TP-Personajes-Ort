@@ -1,5 +1,5 @@
 import sql from 'mssql'
-import configDB from '../models/DB.js'
+import configDB from '../../DB.js'
 import 'dotenv/config'
 
 export class PersonajeService {
@@ -22,35 +22,52 @@ export class PersonajeService {
     ObtenerPersonajes = async (req) => {
         console.log(req.name)
         console.log(req.age)
-        console.log(req.age)
-        var where = "Where "
+        console.log(req.movie)
+
+        const select = 'SELECT P.Nombre , P.Imagen , P.Id FROM Personaje P INNER JOIN PeliculaPersonaje ON PeliculaPersonaje.Id_personaje = P.Id INNER JOIN Pelicula ON PeliculaPersonaje.Id_pelicula = Pelicula.Id '
+        var where = ' Where '
+        var join = ''
         if (req.name) {
-            where =+ 'Nombre = @pNombre'
+            where = where + 'Nombre = @pNombre'
+            if (req.age) {
+                where = where + ' AND Edad = @pEdad'
+            }
+            if (req.movie) {
+                where = where + ' AND Pelicula.Id = @pId'
+            }
+        }
+        else if (req.age) {
+            where = where + 'Edad = @pEdad'
+            if (req.movie) {
+                where = where + ' AND Pelicula.Id = @pId'
+            }
+        }
+        else if (req.movie) {
+            where = where + 'Pelicula.Id = @pId'
+            console.log(where)
             
         }
-        if (req.age) {
-            
-        }
-        if (req.movie) {
-            
-        }
+
+
+        const procedure = select + where
+        console.log(procedure)
+
         const conn = await sql.connect(configDB);
         const results = await conn.request()
-        .input("pNombre", sql.VarChar, req.name)
-        .input("pEdad", sql.VarChar, req.age)
-        .input("pNombre", sql.VarChar, req.name)
-        .query('SELECT Nombre, Imagen, Id FROM Personaje ' + where);
-        
-        
-
+            .input("pNombre", sql.VarChar, req.name)
+            .input("pEdad", sql.Int, req.age)
+            .input("pId", sql.Int, req.movie)
+            .query(procedure)
         return results.recordset;
     }
+
     ObtenerPersonajeById = async (Id) => {
         const conn = await sql.connect(configDB);
         console.log(Id)
-        const results = await conn.request().input("pId", sql.Int, Number(Id))
-            .query('SELECT * FROM Personaje Left JOIN PeliculaPersonaje ON PeliculaPersonaje.Id_personaje = Personaje.Id Left JOIN Pelicula ON PeliculaPersonaje.Id_pelicula = Pelicula.Id WHERE Personaje.Id = @pId' )
-            
+        const results = await conn.request
+        input("pId", sql.Int, Number(Id))
+        .query('SELECT * FROM Personaje INNER JOIN PeliculaPersonaje ON PeliculaPersonaje.Id_personaje = Personaje.Id INNER JOIN Pelicula ON PeliculaPersonaje.Id_pelicula = Pelicula.Id WHERE Personaje.Id = @pId')
+
         return results.recordset;
     }
     EliminarPersonaje = async (Id) => {
@@ -71,4 +88,5 @@ export class PersonajeService {
             .query('UPDATE Personaje SET Nombre = @pNombre, Historia = @pHistoria, Peso =  @pPeso, Edad = @pEdad, Imagen = @pImagen WHERE Id = @pId')
         console.log(result);
     }
+
 }

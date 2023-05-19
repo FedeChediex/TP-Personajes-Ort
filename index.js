@@ -1,8 +1,8 @@
 import "dotenv/config"
 import express from "express";
 
-import PersonajeRouter from "./controllers/PersonajeController.js"
-import PeliculaRouter  from "./controllers/PeliculaController.js";
+import PersonajeRouter from "./src/controllers/PersonajeController.js"
+import PeliculaRouter  from "./src/controllers/PeliculaController.js";
 
 const app = express();
 const port = 3000

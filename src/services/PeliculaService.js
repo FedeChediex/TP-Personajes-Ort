@@ -1,5 +1,5 @@
 import sql from 'mssql';
-import configDB from '../models/DB.js'
+import configDB from '../../DB.js'
 import 'dotenv/config'
 
 export class PeliculaService {
