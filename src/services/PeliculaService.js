@@ -40,18 +40,31 @@ export class PeliculaService {
     }
     ObtenerPeliculas = async (req) => {
         console.log(req.name)
+        console.log(req.order)
         var where = " "
-        
-        if (req.name != null) {
+        var order = " "
+
+        if (req.name) {
             where = 'WHERE Titulo = @pTitulo'
         }
-        var procedure = 'SELECT Titulo, Fecha, Imagen, Id FROM Pelicula ' + where
+        if (req.order) {
+            if (req.order == 'DESC') {
+
+                order = 'order by Fecha DESC'
+            }
+            else{
+                order = 'order by Fecha ASC'
+            }
+        }
+        
+        var procedure = 'SELECT Titulo, Fecha, Imagen, Id FROM Pelicula ' + where + order
         console.log(procedure)
         const conn = await sql.connect(configDB);
         const results = await conn.request()
-        
-        .input('pTitulo', sql.VarChar, req.name)
-        .query(procedure);
+
+            .input('pTitulo', sql.VarChar, req.name)
+            .input('pFecha', sql.Date, req.Date)
+            .query(procedure);
 
         return results.recordset;
     }
