@@ -8,12 +8,13 @@ export class PersonajeService {
 
 
         const results = await connection.request()
+        
             .input("pNombre", sql.VarChar, personaje.nombre)
             .input("pHistoria", sql.VarChar, personaje.historia)
             .input("pPeso", sql.Float, personaje.peso)
             .input("pEdad", sql.Int, personaje.edad)
             .input("pImagen", sql.VarChar, personaje.imagen)
-
+        
             .query('INSERT INTO Personaje (Nombre, Historia, Peso, Edad, Imagen) VALUES (@pNombre, @pHistoria, @pPeso, @pEdad, @pImagen)');
 
         console.log(results);
@@ -64,8 +65,8 @@ export class PersonajeService {
     ObtenerPersonajeById = async (Id) => {
         const conn = await sql.connect(configDB);
         console.log(Id)
-        const results = await conn.request
-        input("pId", sql.Int, Number(Id))
+        const results = await conn.request()
+        .input("pId", sql.Int, Number(Id))
         .query('SELECT * FROM Personaje INNER JOIN PeliculaPersonaje ON PeliculaPersonaje.Id_personaje = Personaje.Id INNER JOIN Pelicula ON PeliculaPersonaje.Id_pelicula = Pelicula.Id WHERE Personaje.Id = @pId')
 
         return results.recordset;
