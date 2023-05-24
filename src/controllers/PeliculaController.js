@@ -10,6 +10,12 @@ router.get('', async(req,res)=>
     const pelicula = await peliculaService.ObtenerPeliculas(req.query)
     return res.status(200).json(pelicula)
 })
+router.get('/:id', async (req, res) => {
+    console.log('Get by ID')
+    const id = req.params.id
+    const pelicula = await peliculaService.ObtenerPeliculaById(id)
+    return res.status(200).json(pelicula)
+})
 router.post('',async(req,res)=>
 {
     console.log('Post')
