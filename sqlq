@@ -1,0 +1,1 @@
+SELECT DISTINCT Peli.Titulo FROM Pelicula Peli LEFT OUTER JOIN PeliculaPersonaje ON PeliculaPersonaje.Id_personaje = P.Id LEFT OUTER JOIN Pelicula Peli ON PeliculaPersonaje.Id_pelicula = Peli.Id WHERE P.Id = 1
