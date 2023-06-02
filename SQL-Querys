@@ -1,0 +1,13 @@
+SELECT P.*, STRING_AGG(Pe.Titulo, ', ') AS RelatedMovies
+FROM Personaje AS P
+LEFT JOIN PeliculaPersonaje AS PX ON P.id = PX.Id_personaje
+LEFT JOIN Pelicula AS Pe ON PX.Id_pelicula = Pe.id
+WHERE P.id = 1
+GROUP BY P.Id, P.Imagen, P.Edad, P.Historia, P.Peso,P.Nombre
+
+SELECT Peli.*, String_AGG(P.Nombre, ', ') As RelatedCharacters
+FROM Pelicula AS Peli
+LEFT JOIN PeliculaPersonaje AS PX ON Peli.id = PX.Id_pelicula
+LEFT JOIN Personaje AS P ON PX.Id_personaje = P.id
+WHERE Peli.id = 3
+GROUP BY Peli.Calificacion, Peli.Fecha, Peli.Id, Peli.Imagen, Peli.Titulo

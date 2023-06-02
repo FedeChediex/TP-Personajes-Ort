@@ -73,7 +73,7 @@ export class PeliculaService {
         console.log(Id)
         const results = await conn.request()
         .input("pId", sql.Int, Number(Id))
-        .query('SELECT * FROM Pelicula INNER JOIN PeliculaPersonaje ON PeliculaPersonaje.Id_pelicula = Pelicula.Id WHERE Pelicula.Id = @pId')
+        .query("SELECT Peli.*, String_AGG(P.Nombre, ', ') As RelatedCharacters FROM Pelicula AS Peli LEFT JOIN PeliculaPersonaje AS PX ON Peli.id = PX.Id_pelicula LEFT JOIN Personaje AS P ON PX.Id_personaje = P.id WHERE Peli.id = @pId GROUP BY Peli.Calificacion, Peli.Fecha, Peli.Id, Peli.Imagen, Peli.Titulo")
 
         return results.recordset;
     }
