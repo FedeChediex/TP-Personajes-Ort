@@ -1,9 +1,9 @@
 import { Router } from 'express'
 import { PersonajeService } from '../services/PersonajeService.js'
-import { Authenticate } from '../common/jwt.strategy.js';
+import { Authenticate } from '../common/jwt.strategy.js'
 
 const router = Router()
-const personajeService = new PersonajeService();
+const personajeService = new PersonajeService()
 
 router.get('',  Authenticate,async (req, res) => {
     console.log('Get all')

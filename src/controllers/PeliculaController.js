@@ -1,37 +1,33 @@
 import { Router } from 'express'
-import {PeliculaService} from '../services/PeliculaService.js'
-import { Authenticate } from '../common/jwt.strategy.js';
+import { PeliculaService } from '../services/PeliculaService.js'
+import { Authenticate } from '../common/jwt.strategy.js'
 
 const router = Router()
-const peliculaService = new PeliculaService();
+const peliculaService = new PeliculaService()
 
-router.get('', async(req,res)=>
-{
+router.get('', Authenticate, async (req, res) => {
     console.log('Get all')
     const pelicula = await peliculaService.ObtenerPeliculas(req.query)
     return res.status(200).json(pelicula)
 })
-router.get('/:id', async (req, res) => {
+router.get('/:id', Authenticate, async (req, res) => {
     console.log('Get by ID')
     const id = req.params.id
     const pelicula = await peliculaService.ObtenerPeliculaById(id)
     return res.status(200).json(pelicula)
 })
-router.post('',async(req,res)=>
-{
+router.post('', Authenticate, async (req, res) => {
     console.log('Post')
     const pelicula = await peliculaService.AgregarPelicula(req.body)
     return res.status(200).json(pelicula)
 })
-router.delete('/:id', async(req,res)=>
-{
+router.delete('/:id', Authenticate, async (req, res) => {
     console.log('Delete')
     const pelicula = await peliculaService.EliminarPelicula(req.params.id)
     return res.status(200).json(pelicula)
 })
 
-router.put('/:id', async(req,res)=>
-{
+router.put('/:id', Authenticate, async (req, res) => {
     console.log('Put')
     const pelicula = peliculaService.UpdatePelicula(req.body, req.params.id)
     return res.status(200).json(pelicula)
