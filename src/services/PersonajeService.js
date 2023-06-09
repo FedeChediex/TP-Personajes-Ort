@@ -19,9 +19,9 @@ export class PersonajeService {
             .input("pEdad", sql.Int, personaje.edad)
             .input("pImagen", sql.VarChar, personaje.imagen)
 
-            .query('INSERT INTO Personaje (Nombre, Historia, Peso, Edad, Imagen) VALUES (@pNombre, @pHistoria, @pPeso, @pEdad, @pImagen)');
+            .query('INSERT INTO Personaje (Nombre, Historia, Peso, Edad, Imagen) VALUES (@pNombre, @pHistoria, @pPeso, @pEdad, @pImagen)')
 
-        console.log(results);
+        console.log(results)
     }
 
     ObtenerPersonajes = async (req) => {
@@ -59,34 +59,34 @@ export class PersonajeService {
         const procedure = select + join + where
 
         
-        const conn = await sql.connect(configDB);
+        const conn = await sql.connect(configDB)
         const results = await conn.request()
             .input("pNombre", sql.VarChar, req.name)
             .input("pEdad", sql.Int, req.age)
             .input("pId", sql.Int, req.movie)
             .query(procedure)
-        return results.recordset;
+        return results.recordset
     }
 
     ObtenerPersonajeById = async (Id) => {
-        const conn = await sql.connect(configDB);
+        const conn = await sql.connect(configDB)
 
         const results = await conn.request()
             .input("pId", sql.Int, Id)
             .query("SELECT P.*, STRING_AGG(Pe.Titulo, ', ') AS RelatedMovies FROM Personaje AS P LEFT JOIN PeliculaPersonaje AS PX ON P.id = PX.Id_personaje LEFT JOIN Pelicula AS Pe ON PX.Id_pelicula = Pe.id WHERE P.id = @pId GROUP BY P.Id, P.Imagen, P.Edad, P.Historia, P.Peso,P.Nombre")
 
-        return results.recordset;
+        return results.recordset
     }
     EliminarPersonaje = async (Id) => {
-        const conn = await sql.connect(configDB);
+        const conn = await sql.connect(configDB)
         const results = await conn.request().input("pId", sql.Int, Id)
             .query('DELETE FROM Personaje WHERE Id = @pId')
-        console.log(results);
+        console.log(results)
     }
     UpdatePersonaje = async (personaje, id) => {
-        var P = this.ObtenerPersonajeById(id)
-
-        const conn = await sql.connect(configDB);
+        var P = await this.ObtenerPersonajeById(id)
+        
+        const conn = await sql.connect(configDB)
         const result = await conn.request()
             .input("pId", sql.Int, id)
             .input("pNombre", sql.VarChar, personaje?.nombre ?? P.nombre)
@@ -95,7 +95,7 @@ export class PersonajeService {
             .input("pEdad", sql.Int, personaje?.edad ?? P.edad)
             .input("pImagen", sql.VarChar, personaje?.imagen ?? P.imagen)
             .query('UPDATE Personaje SET Nombre = @pNombre, Historia = @pHistoria, Peso =  @pPeso, Edad = @pEdad, Imagen = @pImagen WHERE Id = @pId')
-        console.log(result);
+        console.log(result)
     }
 
 }
