@@ -43,6 +43,7 @@ export class PeliculaService {
         console.log(req.order)
         var where = " "
         var order = " "
+        req.order = req.order.toUpperCase()        
 
         if (req.name) {
             where = 'WHERE Titulo = @pTitulo'
