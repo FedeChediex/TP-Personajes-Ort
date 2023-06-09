@@ -83,9 +83,9 @@ export class PersonajeService {
             .query('DELETE FROM Personaje WHERE Id = @pId')
         console.log(results)
     }
-    UpdatePersonaje = async (personaje, id) => {
-        var P = this.ObtenerPersonajeById(id)
-
+   UpdatePersonaje = async (personaje, id) => {
+        var P = await this.ObtenerPersonajeById(id)
+        
         const conn = await sql.connect(configDB)
         const result = await conn.request()
             .input("pId", sql.Int, id)
