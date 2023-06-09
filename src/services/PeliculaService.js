@@ -27,16 +27,20 @@ export class PeliculaService {
         console.log(results)
     }
 
-    UpdatePelicula = async (pelicula, id) => {
+     UpdatePelicula = async (pelicula, id) => {
+        var error = "Algun Atributo no fue enviado"
+        var P = await this.ObtenerPeliculaById(id)
+       
+        
         const conn = await sql.connect(configDB)
         const result = await conn.request()
             .input('pId', sql.Int, id)
-            .input('pTitulo', sql.VarChar, pelicula.titulo)
-            .input('pFecha', sql.Date, pelicula.fecha)
-            .input('pCalificacion', sql.Int, pelicula.calificacion)
-            .input("pImagen", sql.VarChar, pelicula.imagen)
+            .input('pTitulo', sql.VarChar, pelicula?.titulo?? P.titulo)
+            .input('pFecha', sql.Date, pelicula?.fecha?? P.fecha)
+            .input('pCalificacion', sql.Int, pelicula?.calificacion?? P.calificacion)
+            .input("pImagen", sql.VarChar, pelicula?.imagen?? P.imagen)
             .query('UPDATE Pelicula SET Titulo = @pTitulo,Fecha =  @pFecha, Calificacion = @pCalificacion, Imagen = @pImagen WHERE Id = @pId')
-        console.log(result)
+        console.log(result);
     }
     ObtenerPeliculas = async (req) => {
         console.log(req.name)
