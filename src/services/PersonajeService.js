@@ -65,7 +65,7 @@ export class PersonajeService {
             .input("pEdad", sql.Int, req.age)
             .input("pId", sql.Int, req.movie)
             .query(procedure)
-        return results.recordset
+        return results.recordset[0]
     }
 
     ObtenerPersonajeById = async (Id) => {
