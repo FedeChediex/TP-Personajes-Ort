@@ -75,7 +75,7 @@ export class PersonajeService {
             .input("pId", sql.Int, Id)
             .query("SELECT P.*, STRING_AGG(Pe.Titulo, ', ') AS RelatedMovies FROM Personaje AS P LEFT JOIN PeliculaPersonaje AS PX ON P.id = PX.Id_personaje LEFT JOIN Pelicula AS Pe ON PX.Id_pelicula = Pe.id WHERE P.id = @pId GROUP BY P.Id, P.Imagen, P.Edad, P.Historia, P.Peso,P.Nombre")
 
-        return results.recordset
+        return results.recordset[0]
     }
     EliminarPersonaje = async (Id) => {
         const conn = await sql.connect(configDB)
