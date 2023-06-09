@@ -41,6 +41,7 @@ export class PeliculaService {
     ObtenerPeliculas = async (req) => {
         var where = " "
         var order = " "
+        req.order = req.order.toUpperCase()
 
         if (req.name) {
             where = 'WHERE Titulo = @pTitulo'
