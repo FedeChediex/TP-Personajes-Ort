@@ -6,18 +6,18 @@ export class PersonajeService {
 
     AgregarPersonaje = async (personaje) => {
         var error = "Algun Atributo no fue enviado"
-        if (!personaje.nombre || !personaje.historia || !personaje.peso || !personaje.edad || !personaje.imagen) {
+        if (!personaje.Nombre || !personaje.Historia || !personaje.Peso || !personaje.Edad || !personaje.Imagen) {
             return error
         }
 
         const connection = await sql.connect(configDB)
         const results = await connection.request()
 
-            .input("pNombre", sql.VarChar, personaje.nombre)
-            .input("pHistoria", sql.VarChar, personaje.historia)
-            .input("pPeso", sql.Float, personaje.peso)
-            .input("pEdad", sql.Int, personaje.edad)
-            .input("pImagen", sql.VarChar, personaje.imagen)
+            .input("pNombre", sql.VarChar, personaje.Nombre)
+            .input("pHistoria", sql.VarChar, personaje.Historia)
+            .input("pPeso", sql.Float, personaje.Peso)
+            .input("pEdad", sql.Int, personaje.Edad)
+            .input("pImagen", sql.VarChar, personaje.Imagen)
 
             .query('INSERT INTO Personaje (Nombre, Historia, Peso, Edad, Imagen) VALUES (@pNombre, @pHistoria, @pPeso, @pEdad, @pImagen)')
 
@@ -65,7 +65,7 @@ export class PersonajeService {
             .input("pEdad", sql.Int, req.age)
             .input("pId", sql.Int, req.movie)
             .query(procedure)
-        return results.recordset[0]
+        return results.recordset
     }
 
     ObtenerPersonajeById = async (Id) => {
@@ -75,7 +75,7 @@ export class PersonajeService {
             .input("pId", sql.Int, Id)
             .query("SELECT P.*, STRING_AGG(Pe.Titulo, ', ') AS RelatedMovies FROM Personaje AS P LEFT JOIN PeliculaPersonaje AS PX ON P.id = PX.Id_personaje LEFT JOIN Pelicula AS Pe ON PX.Id_pelicula = Pe.id WHERE P.id = @pId GROUP BY P.Id, P.Imagen, P.Edad, P.Historia, P.Peso,P.Nombre")
 
-        return results.recordset
+        return results.recordset[0]
     }
     EliminarPersonaje = async (Id) => {
         const conn = await sql.connect(configDB)
@@ -83,17 +83,17 @@ export class PersonajeService {
             .query('DELETE FROM Personaje WHERE Id = @pId')
         console.log(results)
     }
-    UpdatePersonaje = async (personaje, id) => {
+   UpdatePersonaje = async (personaje, id) => {
         var P = await this.ObtenerPersonajeById(id)
         
         const conn = await sql.connect(configDB)
         const result = await conn.request()
             .input("pId", sql.Int, id)
-            .input("pNombre", sql.VarChar, personaje?.nombre ?? P.nombre)
-            .input("pHistoria", sql.VarChar, personaje?.historia ?? P.historia)
-            .input("pPeso", sql.Float, personaje?.peso ?? P.peso)
-            .input("pEdad", sql.Int, personaje?.edad ?? P.edad)
-            .input("pImagen", sql.VarChar, personaje?.imagen ?? P.imagen)
+            .input("pNombre", sql.VarChar, personaje?.Nombre ?? P.Nombre)
+            .input("pHistoria", sql.VarChar, personaje?.Historia ?? P.Historia)
+            .input("pPeso", sql.Float, personaje?.Peso ?? P.Peso)
+            .input("pEdad", sql.Int, personaje?.Edad ?? P.Edad)
+            .input("pImagen", sql.VarChar, personaje?.Imagen ?? P.Imagen)
             .query('UPDATE Personaje SET Nombre = @pNombre, Historia = @pHistoria, Peso =  @pPeso, Edad = @pEdad, Imagen = @pImagen WHERE Id = @pId')
         console.log(result)
     }
