@@ -5,14 +5,18 @@ import 'dotenv/config'
 export class PeliculaService {
     
     AgregarPelicula = async (pelicula) => {
+        const error = "Algun atributo no fue enviado"
         const connection = await sql.connect(configDB)
-
+       
+        if (!pelicula.Titulo || !pelicula.Fecha || !pelicula.Calificacion || !pelicula.Imagen || pelicula.Calificacion > 5 || pelicula.Calificacion < 1) {
+            return error
+        }
 
         const results = await connection.request()
-            .input("pTitulo", sql.VarChar, pelicula.titulo)
-            .input("pFecha", sql.Date, pelicula.fecha)
-            .input("pCalificacion", sql.Int, pelicula.calificacion)
-            .input("pImagen", sql.VarChar, pelicula.imagen)
+            .input("pTitulo", sql.VarChar, pelicula.Titulo)
+            .input("pFecha", sql.Date, pelicula.Fecha)
+            .input("pCalificacion", sql.Int, pelicula.Calificacion)
+            .input("pImagen", sql.VarChar, pelicula.Imagen)
 
             .query('INSERT INTO Pelicula (Titulo, Fecha, Calificacion, Imagen) VALUES (@pTitulo, @pFecha, @pCalificacion, @pImagen)')
 
@@ -28,18 +32,18 @@ export class PeliculaService {
     }
 
      UpdatePelicula = async (pelicula, id) => {
-        var error = "Algun Atributo no fue enviado"
+        
         var P = await this.ObtenerPeliculaById(id)
        
         
         const conn = await sql.connect(configDB)
         const result = await conn.request()
             .input('pId', sql.Int, id)
-            .input('pTitulo', sql.VarChar, pelicula?.titulo?? P.titulo)
-            .input('pFecha', sql.Date, pelicula?.fecha?? P.fecha)
-            .input('pCalificacion', sql.Int, pelicula?.calificacion?? P.calificacion)
-            .input("pImagen", sql.VarChar, pelicula?.imagen?? P.imagen)
-            .query('UPDATE Pelicula SET Titulo = @pTitulo,Fecha =  @pFecha, Calificacion = @pCalificacion, Imagen = @pImagen WHERE Id = @pId')
+            .input('pTitulo', sql.VarChar, pelicula?.Titulo?? P.Titulo)
+            .input('pFecha', sql.Date, pelicula?.Fecha?? P.Fecha)
+            .input('pCalificacion', sql.Int, pelicula?.Calificacion?? P.Calificacion)
+            .input("pImagen", sql.VarChar, pelicula?.Imagen?? P.Imagen)
+            .query('UPDATE Pelicula SET Titulo = @pTitulo, Fecha =  @pFecha, Calificacion = @pCalificacion, Imagen = @pImagen WHERE Id = @pId')
         console.log(result);
     }
     ObtenerPeliculas = async (req) => {
@@ -47,12 +51,13 @@ export class PeliculaService {
         console.log(req.order)
         var where = " "
         var order = " "
-        req.order = req.order.toUpperCase()        
+            
 
         if (req.name) {
             where = 'WHERE Titulo = @pTitulo'
         }
         if (req.order) {
+            req.order = req.order.toUpperCase()    
             if (req.order == 'DESC') {
 
                 order = 'order by Fecha DESC'
