@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "aea5becd-e629-40b2-8c52-12001f1ddb5c",
+		"_postman_id": "4a10fd66-e65e-457a-9bd7-94f4ac94df8f",
 		"name": "TP_PERSONAJES",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -31,7 +31,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/movies",
+					"raw": "http://localhost:3000/movies?name&order=",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -39,6 +39,17 @@
 					"port": "3000",
 					"path": [
 						"movies"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": null
+						},
+						{
+							"key": "order",
+							"value": "",
+							"description": "ASC | DESC"
+						}
 					]
 				}
 			},
@@ -71,7 +82,12 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "[\r\n    {\r\n        \"Imagen\": \"\",\r\n        \"Titulo\": \"\",\r\n        \"Fecha\": \"\",\r\n        \"Calificacion\": ,\r\n        \r\n    }\r\n]"
+					"raw": "    {\r\n        \"Imagen\": \"adsaf\",\r\n        \"Titulo\": \"safdafa\",\r\n        \"Fecha\": \"2016-09-19\",\r\n        \"Calificacion\": 4\r\n        \r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
 				},
 				"url": {
 					"raw": "http://localhost:3000/movies",
@@ -114,7 +130,12 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "[\r\n    {\r\n        \"Imagen\": \"\",\r\n        \"Titulo\": \"\",\r\n        \"Fecha\": \"\",\r\n        \"Calificacion\": ,\r\n        \r\n    }\r\n]"
+					"raw": "\r\n    {\r\n        \"Imagen\": \"\",\r\n        \"Titulo\": \"\",\r\n        \"Fecha\": \"\",\r\n        \"Calificacion\": \"\"\r\n        \r\n    }\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
 				},
 				"url": {
 					"raw": "http://localhost:3000/movies/1",
@@ -137,7 +158,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/characters",
+					"raw": "http://localhost:3000/characters?name=&age&movie",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -145,6 +166,20 @@
 					"port": "3000",
 					"path": [
 						"characters"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": ""
+						},
+						{
+							"key": "age",
+							"value": null
+						},
+						{
+							"key": "movie",
+							"value": null
+						}
 					]
 				}
 			},
@@ -177,7 +212,12 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "[\r\n    {\r\n        \"Imagen\": \"\",\r\n        \"Nombre\": \"\",\r\n        \"Edad\": ,\r\n        \"Peso\": ,\r\n        \"Historia\": \"\"\r\n    }"
+					"raw": "\r\n    {\r\n        \"Imagen\": \"\",\r\n        \"Nombre\": \"\",\r\n        \"Edad\": 1,\r\n        \"Peso\": 1,\r\n        \"Historia\": \"\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
 				},
 				"url": {
 					"raw": "http://localhost:3000/characters",
@@ -217,15 +257,25 @@
 			"request": {
 				"method": "PUT",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n    {\r\n        \"Imagen\": \"\",\r\n        \"Nombre\": \"\",\r\n        \"Edad\":\"\" ,\r\n        \"Peso\": \"\",\r\n        \"Historia\": \"\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "http://localhost:3000/characters",
+					"raw": "http://localhost:3000/characters/20",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
-						"characters"
+						"characters",
+						"20"
 					]
 				}
 			},

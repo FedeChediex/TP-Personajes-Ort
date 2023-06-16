@@ -3,11 +3,14 @@ import configDB from '../../DB.js'
 import 'dotenv/config'
 
 export class PeliculaService {
-    
+
     AgregarPelicula = async (pelicula) => {
         const error = "Algun atributo no fue enviado"
         const connection = await sql.connect(configDB)
-       
+        console.log(pelicula.Calificacion)
+        console.log(pelicula.Fecha)
+        console.log(pelicula.Imagen)
+        console.log(pelicula.Titulo)
         if (!pelicula.Titulo || !pelicula.Fecha || !pelicula.Calificacion || !pelicula.Imagen || pelicula.Calificacion > 5 || pelicula.Calificacion < 1) {
             return error
         }
@@ -26,23 +29,28 @@ export class PeliculaService {
     EliminarPelicula = async (Id) => {
         const conn = await sql.connect(configDB)
         const results = await conn.request().input("pId", sql.Int, Number(Id))
-            .query('DELETE FROM Pelicula WHERE Id = @pId')
+            .query('DELETE FROM PeliculaPersonaje WHERE Id_pelicula = @pId DELETE FROM Pelicula WHERE Id = @pId')
+            
 
         console.log(results)
     }
 
-     UpdatePelicula = async (pelicula, id) => {
-        
+    UpdatePelicula = async (pelicula, id) => {
+
         var P = await this.ObtenerPeliculaById(id)
-       
-        
+        console.log(P)
+        console.log(pelicula.Imagen)
+        console.log(pelicula.Titulo)
+        console.log(P.Titulo)
+        console.log(P.Fecha)
+
         const conn = await sql.connect(configDB)
         const result = await conn.request()
             .input('pId', sql.Int, id)
-            .input('pTitulo', sql.VarChar, pelicula?.Titulo?? P.Titulo)
-            .input('pFecha', sql.Date, pelicula?.Fecha?? P.Fecha)
-            .input('pCalificacion', sql.Int, pelicula?.Calificacion?? P.Calificacion)
-            .input("pImagen", sql.VarChar, pelicula?.Imagen?? P.Imagen)
+            .input('pTitulo', sql.VarChar, pelicula?.Titulo ?? P.Titulo)
+            .input('pFecha', sql.Date, pelicula?.Fecha ?? P.Fecha)
+            .input('pCalificacion', sql.Int, pelicula?.Calificacion ?? P.Calificacion)
+            .input("pImagen", sql.VarChar, pelicula?.Imagen ?? P.Imagen)
             .query('UPDATE Pelicula SET Titulo = @pTitulo, Fecha =  @pFecha, Calificacion = @pCalificacion, Imagen = @pImagen WHERE Id = @pId')
         console.log(result);
     }
@@ -51,22 +59,22 @@ export class PeliculaService {
         console.log(req.order)
         var where = " "
         var order = " "
-            
+
 
         if (req.name) {
             where = 'WHERE Titulo = @pTitulo'
         }
         if (req.order) {
-            req.order = req.order.toUpperCase()    
+            req.order = req.order.toUpperCase()
             if (req.order == 'DESC') {
 
                 order = 'order by Fecha DESC'
             }
-            else{
+            else {
                 order = 'order by Fecha ASC'
             }
         }
-        
+
         var procedure = 'SELECT Titulo, Fecha, Imagen, Id FROM Pelicula ' + where + order
         console.log(procedure)
         const conn = await sql.connect(configDB)
@@ -82,8 +90,8 @@ export class PeliculaService {
         const conn = await sql.connect(configDB)
         console.log(Id)
         const results = await conn.request()
-        .input("pId", sql.Int, Number(Id))
-        .query("SELECT Peli.*, String_AGG(P.Nombre, ', ') As RelatedCharacters FROM Pelicula AS Peli LEFT JOIN PeliculaPersonaje AS PX ON Peli.id = PX.Id_pelicula LEFT JOIN Personaje AS P ON PX.Id_personaje = P.id WHERE Peli.id = @pId GROUP BY Peli.Calificacion, Peli.Fecha, Peli.Id, Peli.Imagen, Peli.Titulo")
+            .input("pId", sql.Int, Number(Id))
+            .query("SELECT Peli.*, String_AGG(P.Nombre, ', ') As RelatedCharacters FROM Pelicula AS Peli LEFT JOIN PeliculaPersonaje AS PX ON Peli.id = PX.Id_pelicula LEFT JOIN Personaje AS P ON PX.Id_personaje = P.id WHERE Peli.id = @pId GROUP BY Peli.Calificacion, Peli.Fecha, Peli.Id, Peli.Imagen, Peli.Titulo")
 
         return results.recordset[0]
     }

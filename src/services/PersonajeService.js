@@ -80,7 +80,7 @@ export class PersonajeService {
     EliminarPersonaje = async (Id) => {
         const conn = await sql.connect(configDB)
         const results = await conn.request().input("pId", sql.Int, Id)
-            .query('DELETE FROM Personaje WHERE Id = @pId')
+            .query('DELETE FROM PeliculaPersonaje WHERE Id_personaje = @pId DELETE FROM Personaje WHERE Id = @pId')
         console.log(results)
     }
    UpdatePersonaje = async (personaje, id) => {
