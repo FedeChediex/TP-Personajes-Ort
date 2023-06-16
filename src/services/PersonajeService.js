@@ -25,15 +25,16 @@ export class PersonajeService {
     }
 
     ObtenerPersonajes = async (req) => {
-
+        const name = req?.name?? null
+        const age = req?.age?? null
 
         const select = 'SELECT P.Nombre , P.Imagen , P.Id FROM Personaje P  '
         var where = ''
         var join = "LEFT JOIN PeliculaPersonaje AS PX ON P.id = PX.Id_personaje LEFT JOIN Pelicula AS Pe ON PX.Id_pelicula = Pe.id "
         if (req.name) {
-            where = where + ' Where Nombre = @pNombre'
+            where = where +  `Where Nombre LIKE '${name}%' `
             if (req.age) {
-                where = where + ' AND Edad = @pEdad'
+                where = where + `AND Edad LIKE '${age}%' `
             }
             if (req.movie) {
                 where = where + ' AND Pelicula.Id = @pId'
@@ -41,7 +42,7 @@ export class PersonajeService {
 
         }
         else if (req.age) {
-            where = where + 'Where Edad = @pEdad'
+            where = where + `Where Edad LIKE '${age}%' `
             if (req.movie) {
                 where = where + ' AND Pelicula.Id = @pId'
             }
@@ -57,7 +58,6 @@ export class PersonajeService {
 
         where = where + " GROUP BY P.Id, P.Imagen,P.Nombre"
         const procedure = select + join + where
-
         
         const conn = await sql.connect(configDB)
         const results = await conn.request()

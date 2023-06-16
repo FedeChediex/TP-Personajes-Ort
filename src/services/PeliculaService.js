@@ -7,10 +7,6 @@ export class PeliculaService {
     AgregarPelicula = async (pelicula) => {
         const error = "Algun atributo no fue enviado"
         const connection = await sql.connect(configDB)
-        console.log(pelicula.Calificacion)
-        console.log(pelicula.Fecha)
-        console.log(pelicula.Imagen)
-        console.log(pelicula.Titulo)
         if (!pelicula.Titulo || !pelicula.Fecha || !pelicula.Calificacion || !pelicula.Imagen || pelicula.Calificacion > 5 || pelicula.Calificacion < 1) {
             return error
         }
@@ -38,11 +34,6 @@ export class PeliculaService {
     UpdatePelicula = async (pelicula, id) => {
 
         var P = await this.ObtenerPeliculaById(id)
-        console.log(P)
-        console.log(pelicula.Imagen)
-        console.log(pelicula.Titulo)
-        console.log(P.Titulo)
-        console.log(P.Fecha)
 
         const conn = await sql.connect(configDB)
         const result = await conn.request()
@@ -52,17 +43,16 @@ export class PeliculaService {
             .input('pCalificacion', sql.Int, pelicula?.Calificacion ?? P.Calificacion)
             .input("pImagen", sql.VarChar, pelicula?.Imagen ?? P.Imagen)
             .query('UPDATE Pelicula SET Titulo = @pTitulo, Fecha =  @pFecha, Calificacion = @pCalificacion, Imagen = @pImagen WHERE Id = @pId')
-        console.log(result);
+            console.log(results)
     }
     ObtenerPeliculas = async (req) => {
-        console.log(req.name)
-        console.log(req.order)
+        
         var where = " "
         var order = " "
-
+        const title = req?.name?? null
 
         if (req.name) {
-            where = 'WHERE Titulo = @pTitulo'
+            where = `WHERE Titulo LIKE '${title}%' `
         }
         if (req.order) {
             req.order = req.order.toUpperCase()
@@ -76,7 +66,7 @@ export class PeliculaService {
         }
 
         var procedure = 'SELECT Titulo, Fecha, Imagen, Id FROM Pelicula ' + where + order
-        console.log(procedure)
+        
         const conn = await sql.connect(configDB)
         const results = await conn.request()
 
@@ -88,7 +78,7 @@ export class PeliculaService {
     }
     ObtenerPeliculaById = async (Id) => {
         const conn = await sql.connect(configDB)
-        console.log(Id)
+        
         const results = await conn.request()
             .input("pId", sql.Int, Number(Id))
             .query("SELECT Peli.*, String_AGG(P.Nombre, ', ') As RelatedCharacters FROM Pelicula AS Peli LEFT JOIN PeliculaPersonaje AS PX ON Peli.id = PX.Id_pelicula LEFT JOIN Personaje AS P ON PX.Id_personaje = P.id WHERE Peli.id = @pId GROUP BY Peli.Calificacion, Peli.Fecha, Peli.Id, Peli.Imagen, Peli.Titulo")
