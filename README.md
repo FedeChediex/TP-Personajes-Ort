@@ -12,7 +12,7 @@ Autenticacion: Bearer token mediante [jwt](https://jwt.io/) strategy.
 | git clone https://github.com/FedeChediex/TP-Personajes-Ort.git |
 
 2. Abir sql, conectar y copiar el  **Server Name**
-![](Sql-Server-Name)
+![](/ReadmeImg/Sql-Server-Name.PNG)
 
 //AGREGAR COMANDOS PARA EJECUTAR Y DONDE VA A ESTAR DISPONIBLE
 	
