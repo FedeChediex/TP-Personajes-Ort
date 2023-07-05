@@ -1,0 +1,184 @@
+openapi: 3.0.0
+info:
+  title: TP_PERSONAJES
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+security:
+  - bearerAuth: []
+paths:
+  /auth/login:
+    get:
+      tags:
+        - default
+      summary: Personajes Authentication
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /movies:
+    get:
+      tags:
+        - default
+      summary: GETALL movies
+      parameters:
+        - name: name
+          in: query
+          schema:
+            type: string
+        - name: order
+          in: query
+          schema:
+            type: string
+          description: ASC | DESC
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    post:
+      tags:
+        - default
+      summary: POST movies
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                Imagen: adsaf
+                Titulo: safdafa
+                Fecha: '2016-09-19'
+                Calificacion: 4
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /movies/1:
+    get:
+      tags:
+        - default
+      summary: GETBYID movies
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - default
+      summary: DELETE movies
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    put:
+      tags:
+        - default
+      summary: UPDATE movies
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                Imagen: ''
+                Titulo: ''
+                Fecha: ''
+                Calificacion: ''
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /characters:
+    get:
+      tags:
+        - default
+      summary: GETALL character
+      parameters:
+        - name: name
+          in: query
+          schema:
+            type: string
+        - name: age
+          in: query
+          schema:
+            type: string
+        - name: movie
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    post:
+      tags:
+        - default
+      summary: POST character
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                Imagen: ''
+                Nombre: ''
+                Edad: 1
+                Peso: 1
+                Historia: ''
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - default
+      summary: DELETE character
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /characters/2:
+    get:
+      tags:
+        - default
+      summary: GETBYID character
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /characters/20:
+    put:
+      tags:
+        - default
+      summary: UPDATE character
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                Imagen: ''
+                Nombre: ''
+                Edad: ''
+                Peso: ''
+                Historia: ''
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
