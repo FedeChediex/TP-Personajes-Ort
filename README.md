@@ -14,6 +14,7 @@ Autenticacion: Bearer token mediante [jwt](https://jwt.io/) strategy.
 2. Abir sql, conectar y copiar el  **Server Name**
 ![](/ReadmeImg/Sql-Server-Name.PNG)
 
+3. Abir el archivo **.env** y *pegar* el server name en **DB_SERVER*
 //AGREGAR COMANDOS PARA EJECUTAR Y DONDE VA A ESTAR DISPONIBLE
 	
 
