@@ -8,3 +8,6 @@ Autenticacion: Bearer token mediante [jwt](https://jwt.io/) strategy.
 1.
 
 //AGREGAR COMANDOS PARA EJECUTAR Y DONDE VA A ESTAR DISPONIBLE
+	- [x] Write the press release
+- [ ] Update the website
+- [ ] Contact the media
