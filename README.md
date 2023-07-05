@@ -9,10 +9,10 @@ Autenticacion: Bearer token mediante [jwt](https://jwt.io/) strategy.
    
 | Syntax      |
 | :---        |
-| Header      |
-
-
 | git clone https://github.com/FedeChediex/TP-Personajes-Ort.git |
+
+
+
 
 //AGREGAR COMANDOS PARA EJECUTAR Y DONDE VA A ESTAR DISPONIBLE
 	
