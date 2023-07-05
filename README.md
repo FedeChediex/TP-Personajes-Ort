@@ -5,14 +5,14 @@ Requisitos: Tener Instaladas las tecnologias mencionadas anteriormente
 
 Autenticacion: Bearer token mediante [jwt](https://jwt.io/) strategy.  
 
-1. Clonar / Descargar el Repositorio y abrirlo
+1. Clonar / Descargar el Repositorio
    
-| Terminal|
-| :---        |
+| Terminal |
+| :---     |
 | git clone https://github.com/FedeChediex/TP-Personajes-Ort.git |
 
-
-
+2. Abir sql, conectar y copiar el  **Server Name**
+![](Sql-Server-Name)
 
 //AGREGAR COMANDOS PARA EJECUTAR Y DONDE VA A ESTAR DISPONIBLE
 	
