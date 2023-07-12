@@ -4,10 +4,13 @@
   "description": "",
   "main": "index.js",
   "type": "module",
-  "nodemonConfig":{
-    "ignore": ["**/*.txt", "**/*.sql", "**/*.gitgnore, **/*.md"]
-  
-      },
+  "nodemonConfig": {
+    "ignore": [
+      "**/*.txt",
+      "**/*.sql",
+      "**/*.gitgnore, **/*.md"
+    ]
+  },
   "scripts": {
     "watch": "nodemon"
   },
@@ -21,8 +24,6 @@
     "passport-jwt": "^4.0.1"
   },
   "devDependencies": {
-   
     "nodemon": "^2.0.22"
   }
-
 }
