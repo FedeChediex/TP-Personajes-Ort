@@ -7,9 +7,9 @@ Autenticacion: Bearer token mediante [jwt](https://jwt.io/) strategy.
 
 1. Clonar / Descargar el Repositorio
    
-| Terminal |
-| :---     |
-| git clone https://github.com/FedeChediex/TP-Personajes-Ort.git |
+```bash
+ git clone https://github.com/FedeChediex/TP-Personajes-Ort.git
+```
 
 2. Abir sql, conectar y copiar el  **Server Name**
 
