@@ -12,22 +12,7 @@ Autenticacion: Bearer token mediante [jwt](https://jwt.io/) strategy.
 ```
 2. Instalar las dependencias
 ```bash
-npm i --save-dev nodemon
-```	
-```bash
-npm i express
-```	
-```bash
-npm i dotenv --save
-```
-```bash
-npm i passport
-```
-```bash
-npm i passport-jwt
-```
-```bash
-npm i mssql
+npm i 
 ```
 
 3. Abir sql, conectar y copiar el  **Server Name**
