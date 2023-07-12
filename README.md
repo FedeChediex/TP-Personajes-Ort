@@ -1,34 +1,51 @@
 # TP-Personajes-Ort
-Utiliza **Nodemon**, **Express**, **SQL**, **Swagger**
 
-Requisitos: Tener Instaladas las tecnologias mencionadas anteriormente
+## Movies and charactes Api
 
-Autenticacion: Bearer token mediante [jwt](https://jwt.io/) strategy.  
+ This project was made with **Node**, **Nodemon**, **Express**, **MSSQL**, **passport**, **jwt**, **dotenv**
+
+- Passport and jwt: Authentication
+
+- Express: Framework for web application
+
+
+- Dotenv: Interact with the [.env](./env) file
+
+- MSSQL: Data Base
+
+- Nodemon: When a modification is made, it reloads the project
 
 # Installation
 
-1. Clonar / Descargar el Repositorio
+1. Clone / Download Repository
    
 ```bash
  git clone https://github.com/FedeChediex/TP-Personajes-Ort.git
 ```
-2. Instalar las dependencias
+2. Install dependencies
 ```bash
 npm i 
 ```
-
-3. Abir sql, conectar y copiar el  **Server Name**
+# Set up
+1. Open sql, copy  **Server Name** and connect
 
 ![](/ReadmeImg/Sql-Server-Name.PNG)
 
-4. Abir el archivo **.env** y *pegar* el server name en ***DB_SERVER***
-5. En el sql Correr el script "***TP-Personajes.sql***" y luego el "***01 - CreateLoginAndUser.sql***"
+2. Open the file **.env** and *paste* the name of the server in ***DB_SERVER***
+3. On sql run the script "***TP-Personajes.sql***" and then "***01 - CreateLoginAndUser.sql***"
 
-6. Correr el proyecto
+
+# Api Usage
+1. Run the proyect
 ```bash
 npm run watch
 ```	
-7. Si queres probar el proyecto hay un archivo [Swagger](./SwaggerPersonajes.yaml) de swagger y otro de [Postman](./TP_PERSONAJES.postman_collection.json)
+ 2. To use the proyect there is two options: [Swagger](./SwaggerPersonajes.yaml) or [Postman](./TP_PERSONAJES.postman_collection.json)
+   
+#
+Made by: Federico Chediex and Mauricio Koifman
+
+    
 
 
     
