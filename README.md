@@ -6,6 +6,7 @@ Requisitos: Tener Instaladas las tecnologias mencionadas anteriormente
 Autenticacion: Bearer token mediante [jwt](https://jwt.io/) strategy.  
 
 1. Clonar / Descargar el Repositorio
+   
 | Terminal |
 | :---     |
 | git clone https://github.com/FedeChediex/TP-Personajes-Ort.git |
