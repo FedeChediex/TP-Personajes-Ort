@@ -1,8 +1,7 @@
 # TP-Personajes-Ort
 
 ## Movies and charactes Api
-##### An API to explore the world of Disney, which will allow knowing and modifying the characters that compose it and understand which films participate.
-########## Federico Chediex - Mauricio Koifman
+#### An API to explore the world of Disney, which will allow knowing and modifying the characters that compose it and understand which films participate. Proyect made by: Federico Chediex - Mauricio Koifman
  This project was made with **Node**, **Nodemon**, **Express**, **MSSQL**, **passport**, **jwt**, **dotenv**
 
 - Passport and jwt: Authentication
