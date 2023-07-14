@@ -1,0 +1,305 @@
+openapi: 3.0.0
+info:
+  title: Characters API
+  description: This API provides endpoints for managing characters.
+  version: 1.0.0
+
+paths:
+  /auth/login:
+    get:
+      summary: Get a signed token
+      security:
+        - bearerAuth: []
+      operationId: getSignedToken
+      responses:
+        '200':
+          description: Token successfully generated
+          content:
+            application/json:
+              schema:
+                type: string
+  /characters:
+    get:
+      security:
+        - bearerAuth: []
+      operationId: getCharacters
+      description: Get all characters.
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PersonajeGetAll"
+    post:
+      security:
+        - bearerAuth: []
+      operationId: createCharacter
+      description: Create a new character.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PersonajePost"
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Personaje"
+  /characters/{id}:
+    get:
+      security:
+        - bearerAuth: []
+      operationId: getCharacterById
+      description: Get a character by ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Personaje"
+    delete:
+      security:
+        - bearerAuth: []
+      operationId: deleteCharacterById
+      description: Delete a character by ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: OK
+    put:
+      security:
+        - bearerAuth: []
+      operationId: updateCharacterById
+      description: Update a character by ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PersonajePost"
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Personaje"
+
+  /movies:
+    get:
+      summary: Get all movies.
+      security:
+        - bearerAuth: []
+      operationId: getMovies
+      parameters:
+        - name: name
+          in: query
+          schema:
+            type: string
+        - name: age
+          in: query
+          schema:
+            type: integer
+        - name: movie
+          in: query
+          schema:
+            type: string
+            
+              
+      responses:
+        200:
+          description: A list of movies.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/MovieGetAll"
+    post:
+      summary: Create a new movie.
+      security:
+        - bearerAuth: []
+      operationId: createMovie
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MoviePost"
+      responses:
+        200:
+          description: The created movie.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Movie"
+  /movies/{id}:
+    get:
+      summary: Get a movie by ID.
+      security:
+        - bearerAuth: []
+      operationId: getMovieById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: The movie.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Movie"
+    delete:
+      summary: Delete a movie by ID.
+      security:
+        - bearerAuth: []
+      operationId: deleteMovieById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: The deleted movie.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Movie"
+    put:
+      summary: Update a movie by ID.
+      security:
+        - bearerAuth: []
+      operationId: updateMovieById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Movie"
+      responses:
+        200:
+          description: The updated movie.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Movie" 
+              
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+  schemas:
+    Movie:
+      type: object
+      properties:
+        id:
+          type: integer
+        titulo:
+          type: string
+        fecha:
+          type: string
+        calificacion:
+          type: number
+        imagen:
+          type: string
+    
+    MovieGetAll:
+      type: object
+      properties:
+        id:
+          type: integer
+        titulo:
+          type: string
+        fecha:
+          type: string
+        imagen:
+          type: string
+    MoviePost:
+      type: object
+      properties:
+        
+        titulo:
+          type: string
+        fecha:
+          type: string
+        calificacion:
+          type: number
+        imagen:
+          type: string
+
+    Personaje:
+      type: object
+      properties:
+        id:
+          type: integer
+        nombre:
+          type: string
+        peso:
+          type: number
+        edad:
+          type: integer
+        historia:
+          type: string
+        imagen:
+          type: string
+          
+
+  
+    PersonajeGetAll:
+      type: object
+      properties:
+        id:
+          type: integer
+        nombre:
+          type: string
+        imagen:
+          type: string
+        
+    PersonajePost:
+      type: object
+      properties:
+        nombre:
+          type: string
+        peso:
+          type: number
+        edad:
+          type: integer
+        historia:
+          type: string
+        imagen:
+          type: string
+    
