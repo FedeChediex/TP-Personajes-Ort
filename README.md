@@ -22,7 +22,11 @@
 ```bash
  git clone https://github.com/FedeChediex/TP-Personajes-Ort.git
 ```
-2. Install dependencies
+2. Go to auth branch
+```bash
+git checkout auth
+```
+3. Install dependencies
 ```bash
 npm i 
 ```
